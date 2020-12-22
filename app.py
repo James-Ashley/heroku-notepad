@@ -10,13 +10,13 @@ import json
 
 app = Flask(__name__)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = environ.get('DATABASE_URL', 'sqlite:///notepad.sqlite')
+# app.config['SQLALCHEMY_DATABASE_URI'] = environ.get('DATABASE_URL', 'sqlite:///notepad.sqlite')
 
-db = SQLAlchemy(app)
+# db = SQLAlchemy(app)
 
-class Task(db.Model):
-    id = db.Column(db.integer, primary_key=True)
-    description = db.Column(db.String)
+# class Task(db.Model):
+#     id = db.Column(db.integer, primary_key=True)
+#     description = db.Column(db.String)
 
 
 app.config['MONGO_URI'] = environ.get('MONGODB_URI') or 'mongodb://localhost:27071/heroku-notepad'
@@ -27,19 +27,19 @@ mongo = PyMongo(app)
 def index():
     return render_template('index.html', name="James")
 # POSTGRES
-@app.route('/api/tasks-postgres')
-def getTasksPostgres():
-    tasks = db.session.query(Task)
-    data = []
+# @app.route('/api/tasks-postgres')
+# def getTasksPostgres():
+#     tasks = db.session.query(Task)
+#     data = []
 
-    for task in tasks:
-        item = {
-            'id': task.id,
-            'description': task.description
-        }
-        data.append(item)
+#     for task in tasks:
+#         item = {
+#             'id': task.id,
+#             'description': task.description
+#         }
+#         data.append(item)
     
-    return jsonify(data)
+#     return jsonify(data)
 
 @app.route('/tasks')
 def tasks():
