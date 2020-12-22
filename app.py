@@ -19,7 +19,7 @@ app = Flask(__name__)
 #     description = db.Column(db.String)
 
 
-app.config['MONGO_URI'] = environ.get('MONGODB_URI') or 'mongodb://localhost:27071/heroku-notepad'
+app.config['MONGO_URI'] = environ.get('MONGODB_URI', 'mongodb://localhost:27071/heroku-notepad')
 
 mongo = PyMongo(app)
 
@@ -41,15 +41,15 @@ def index():
     
 #     return jsonify(data)
 
-@app.route('/tasks')
-def tasks():
-    tasks = mongo.db.tasks.find({})
+@app.route('/api/tasks-mongo')
+def getTasksMongo():
+    tasks = mongo.db.tasks.find()
     data = []
     
     for task in tasks:
         item = {
-            "_id": str(task['_id']),
-            "description": task['description']
+            '_id': str(task['_id']),
+            'description': task['description']
         }
         data.append(item)
 
