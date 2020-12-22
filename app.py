@@ -19,7 +19,7 @@ app = Flask(__name__)
 #     description = db.Column(db.String)
 
 
-app.config['MONGO_URI'] = environ.get('MONGODB_URI', 'mongodb://localhost:27071/heroku-notepad')
+app.config['MONGO_URI'] = environ.get('MONGODB_URI', 'mongodb://localhost:27017/heroku-notepad')
 
 mongo = PyMongo(app)
 
